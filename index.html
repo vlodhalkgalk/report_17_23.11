@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Еженедельный отчёт для Совета директоров</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b4e 100%);
+            color: #ffffff;
+            padding: 40px 30px;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #8b5cf6;
+        }
+        
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        
+        .header .date {
+            font-size: 16px;
+            color: #c4b5fd;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        
+        .section {
+            background: rgba(139, 92, 246, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #a78bfa;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.4);
+        }
+        
+        .subsection {
+            margin-bottom: 25px;
+        }
+        
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 12px;
+            background: rgba(139, 92, 246, 0.15);
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        .item {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #e9d5ff;
+            margin-left: 15px;
+        }
+        
+        .highlight {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .metric {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(139, 92, 246, 0.2);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #a78bfa;
+            margin: 3px 3px 3px 0;
+            font-size: 14px;
+        }
+        
+        .status-pending {
+            color: #fbbf24;
+        }
+        
+        .status-complete {
+            color: #34d399;
+        }
+        
+        .status-negative {
+            color: #f87171;
+        }
+        
+        .positive {
+            color: #34d399;
+        }
+        
+        .negative {
+            color: #f87171;
+        }
+        
+        .financial-summary {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid #8b5cf6;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .financial-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 15px;
+        }
+        
+        .financial-row:last-child {
+            border-bottom: none;
+        }
+        
+        .financial-label {
+            font-weight: 500;
+            color: #c4b5fd;
+        }
+        
+        .financial-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .total-row {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 18px !important;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        
+        .total-row .financial-label {
+            font-size: 17px;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+        
+        .total-row .financial-value {
+            font-size: 22px;
+        }
+        
+        .alert {
+            background: rgba(248, 113, 113, 0.15);
+            border: 1px solid #f87171;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .alert-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .alert-content {
+            font-size: 15px;
+            color: #fecaca;
+            line-height: 1.5;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: rgba(139, 92, 246, 0.12);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-left: 3px solid #8b5cf6;
+        }
+        
+        .event-date {
+            color: #a78bfa;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .event-title {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        
+        .event-speaker {
+            color: #c4b5fd;
+            font-size: 14px;
+        }
+        
+        .info-box {
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #8b5cf6;
+        }
+        
+        .success-box {
+            background: rgba(52, 211, 153, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #34d399;
+        }
+        
+        @media (max-width: 968px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            body {
+                padding: 30px 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/vlodhalkgalk/SD_photo/3213a11178e5004952bf6194ec1a29b92597d1a6/%D0%BB%D0%BE%D0%B3%D0%BE%202.png" alt="Логотип" class="logo">
+            <h1>Еженедельный отчёт</h1>
+            <div class="date">для Совета директоров • 17–23 ноября 2024</div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Сообщество</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Мероприятия декабря</h3>
+                <div class="event-card">
+                    <div class="event-date">4 декабря</div>
+                    <div class="event-title">Ужин-знакомство с СД</div>
+                    <div class="event-speaker">Артём Андросов</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">13 декабря</div>
+                    <div class="event-title">Новый Год в Волене</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">20 декабря</div>
+                    <div class="event-title">ИнвестРазборы</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Продажи</h2>
+
+            <div class="grid-2">
+                <div class="subsection">
+                    <h3 class="subsection-title">Заявки (по источникам)</h3>
+                    <div class="item">Телеграм и бот <span class="metric">1</span></div>
+                    <div class="item">СД <span class="metric">1</span></div>
+                    <div class="item">Артем Андросов <span class="metric">1</span></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Заявки (по целям)</h3>
+                    <div class="item">Вступление <span class="metric">1</span></div>
+                    <div class="item">Мастермайнд <span class="metric">1</span></div>
+                    <div class="item">Квалификация <span class="metric">1</span></div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Статус сделок</h3>
+                <div class="item">На этапе оформления и оплаты <span class="metric">0</span></div>
+                <div class="item">Новые резиденты <span class="metric">0</span></div>
+                <div class="item">Онбординг <span class="metric">0</span></div>
+                <div class="item">Поступления по продажам <span class="metric">0 ₽</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Продления</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">На продлении</h3>
+                <div class="item">Швайков И. <span class="metric">750 000 ₽</span></div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Ожидание оплаты</h3>
+                <div class="item">Ефимов А. (1/5 платеж) <span class="metric">200 000 ₽</span></div>
+                <div class="item">Шурыгин И. (2/4 и 3/4) <span class="metric">375 000 ₽</span></div>
+                <div class="item">Гасанов М. <span class="metric">500 000 ₽</span></div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Итоги</h3>
+                <div class="item">Поступления по продлениям <span class="metric positive">1 117 944 ₽</span></div>
+                <div class="item" style="margin-left: 30px;">Шмонов А. <span class="metric positive">750 000 ₽</span> (100% за год)</div>
+                <div class="item" style="margin-left: 30px;">Лоскутов В. <span class="metric positive">250 000 ₽</span> (очередной платеж в рамках рассрочки)</div>
+                <div class="item" style="margin-left: 30px;">Бартюк Т. <span class="metric positive">117 943,50 ₽</span> (остаток платежа)</div>
+                <div class="item">Не продлились <span class="status-negative">3 человека (2 250 000 ₽)</span></div>
+                <div class="item" style="margin-left: 30px;">Мухтаров А. <span class="metric">750 000 ₽</span></div>
+                <div class="item" style="margin-left: 30px;">Левитан А. <span class="metric">750 000 ₽</span></div>
+                <div class="item" style="margin-left: 30px;">Чеботарев А. <span class="metric">750 000 ₽</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Продвижение</h2>
+
+            <div class="grid-2">
+                <div class="subsection">
+                    <h3 class="subsection-title">Telegram</h3>
+                    <div class="item">Подписчики <span class="metric positive">+4 (612)</span></div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Instagram</h3>
+                    <div class="item">Подписчики <span class="metric positive">+4 (920)</span></div>
+                    <div class="item">Охват <span class="metric">2 213</span></div>
+                    <div class="item">Аккаунты <span class="metric">249</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Проектный офис</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Spa Solux</h3>
+                <div class="item"><span class="highlight">Статус</span> корпоративный договор переделываем в акционерное соглашение</div>
+                <div style="margin-top: 15px; color: #34d399; font-weight: 600; padding-left: 15px;">Выполненные задачи</div>
+                <div class="item">Подготовили акционерное соглашение</div>
+                <div style="margin-top: 15px; color: #a78bfa; font-weight: 600; padding-left: 15px;">Сбор commitments</div>
+                <div class="item">soft <span class="metric">70 млн ₽</span></div>
+                <div class="item">hard <span class="metric">0 млн ₽</span></div>
+                <div class="item">Свободная аллокация <span class="metric">0 млн ₽</span></div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Лофт 228</h3>
+                <div class="item"><span class="highlight">Статус</span> сбор сделки</div>
+                <div style="margin-top: 15px; color: #34d399; font-weight: 600; padding-left: 15px;">Выполненные задачи</div>
+                <div class="item">Подготовка материалов для ИК</div>
+                <div class="item">Встречи с инвесторами</div>
+                <div style="margin-top: 15px; color: #a78bfa; font-weight: 600; padding-left: 15px;">Сбор commitments</div>
+                <div class="item">soft <span class="metric">40–65 млн ₽</span></div>
+                <div class="item">hard <span class="metric">0 млн ₽</span></div>
+                <div class="item">Свободная аллокация <span class="metric">91–116 млн ₽</span></div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Новая Басманная 19с2</h3>
+                <div class="item"><span class="highlight">Статус</span> сбор сделки</div>
+                <div class="item">Сбор коммитов</div>
+                <div style="margin-top: 15px; color: #34d399; font-weight: 600; padding-left: 15px;">Выполненные задачи</div>
+                <div class="item">Проведена встреча с инвесторами для информирования о проекте</div>
+                <div style="margin-top: 15px; color: #a78bfa; font-weight: 600; padding-left: 15px;">Сбор commitments</div>
+                <div class="item">soft <span class="metric">23 млн ₽</span></div>
+                <div class="item">hard <span class="metric">0 млн ₽</span></div>
+                <div class="item">Свободная аллокация <span class="metric">127 млн ₽</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">ВИ</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Е. Ларионов</h3>
+                <div class="item">Дашкиев <span class="status-complete">перестановка согласована ✔️</span></div>
+                <div class="item">Остальные перестановки исполнены, собираем закрывающие</div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Е. Лашков</h3>
+                <div class="item">Перестановки исполнены, собираем закрывающие</div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">В. Баев</h3>
+                <div class="item">Тищенко в процессе, все документы отправлены, пока ОС от комплаенс не было</div>
+                <div class="item">Хайкин в работе у П. Гнибиды. Передала ему все, что нужно. Попросила вернуться с ОС, когда акции будут переставлены</div>
+            </div>
+        </div>
+
+        <div class="financial-summary">
+            <h2 class="section-title" style="margin-bottom: 30px;">Итоги недели: финансовый результат (16–23 ноября)</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">Поступления</h3>
+                <div class="financial-row">
+                    <span class="financial-label">Продажа</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Продление</span>
+                    <span class="financial-value positive">1 117 944 ₽</span>
+                </div>
+                <div class="info-box" style="margin-left: 0; font-size: 14px; color: #c4b5fd;">
+                    Шмонов 100% за год, Бартюк и Лоскутов очередной платеж в рамках рассрочки
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Комиссия</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Финмониторинг</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Прочие поступления</span>
+                    <span class="financial-value positive">237 030 ₽</span>
+                </div>
+                <div class="info-box" style="margin-left: 0; font-size: 14px; color: #c4b5fd;">
+                    Дамир оплатил услуги PDP, планируется что данный платеж станет частью оплаты ежегодного взноса
+                </div>
+                <div class="financial-row total-row">
+                    <span class="financial-label">Всего поступлений</span>
+                    <span class="financial-value positive">1 354 974 ₽</span>
+                </div>
+            </div>
+
+            <div class="subsection" style="margin-top: 30px;">
+                <h3 class="subsection-title">Операционные расходы</h3>
+                <div class="financial-row">
+                    <span class="financial-label">ФОТ команды</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Налоги</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Расходы на выход из проектов</span>
+                    <span class="financial-value">10 000 ₽</span>
+                </div>
+                <div class="info-box" style="margin-left: 0; font-size: 14px; color: #c4b5fd;">
+                    Нотариус ДФК, продажа доли А. Колмагорову
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Производственные расходы</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Коммерческие расходы</span>
+                    <span class="financial-value">0 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Административные расходы</span>
+                    <span class="financial-value">115 605 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Организация мероприятий</span>
+                    <span class="financial-value">453 503 ₽</span>
+                </div>
+                <div class="financial-row">
+                    <span class="financial-label">Проценты по овердрафту</span>
+                    <span class="financial-value">32 240 ₽</span>
+                </div>
+                <div class="financial-row total-row">
+                    <span class="financial-label">Всего расходов</span>
+                    <span class="financial-value negative">611 348 ₽</span>
+                </div>
+            </div>
+
+            <div class="financial-row total-row" style="margin-top: 30px; background: rgba(52, 211, 153, 0.2);">
+                <span class="financial-label">Чистый денежный поток</span>
+                <span class="financial-value positive">743 626 ₽</span>
+            </div>
+
+            <div class="success-box" style="margin-top: 20px;">
+                <div style="font-weight: 600; color: #34d399; margin-bottom: 10px;">Погашен овердрафт</div>
+                <div style="color: #e9d5ff; margin-bottom: 8px;">Погашено <span class="highlight">1 121 610 ₽</span></div>
+                <div style="color: #e9d5ff;">Текущая задолженность <span class="highlight">285 372,25 ₽</span></div>
+            </div>
+
+            <div class="financial-row total-row" style="margin-top: 20px; background: rgba(139, 92, 246, 0.25);">
+                <span class="financial-label">Остаток денежных средств</span>
+                <span class="financial-value">573 962,12 ₽</span>
+            </div>
+            <div style="text-align: right; margin-top: 8px; color: #c4b5fd; font-size: 13px; padding-right: 10px;">
+                в том числе на р/с 4 121,03 ₽
+            </div>
+
+            <div class="alert">
+                <div class="alert-icon">‼️</div>
+                <div class="alert-content">
+                    <div style="margin-bottom: 10px;"><strong>Внимание</strong> Не получен очередной платёж по графику рассрочки за членство в фонде от <strong>Ильи Шурыгина</strong> (187 500 ₽). Платёж перенесён со сроком «до конца ноября»</div>
+                    <div><strong>Внимание</strong> Платёж плановый в рамках рассрочки от <strong>Гуляева</strong> перенесён «до конца ноября» (500 000 ₽)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
